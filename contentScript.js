@@ -1,4 +1,4 @@
-(() => {
+;(() => {
   let mailer, mailing
   console.log('I am activeeeeeeee')
 
@@ -23,10 +23,12 @@
   }
 
   const sumarize = () => {
-    const content = document.querySelector(
-      '[class^="m_-1747130294979513310"] [class*="bodyContent"]'
-    )
+    const content = document.getElementById(':1u')
+    const body = content.getElementsByTagName('div')
+    const realContent = body[0]
 
     console.log(content)
+    console.log(body)
+    console.log(realContent.innerText)
   }
 })()
