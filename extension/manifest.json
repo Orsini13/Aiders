@@ -1,0 +1,29 @@
+{
+    "name": "aids",
+    "version": "0.1.0",
+    "description": "Saving timestamps in YT videos",
+    "permissions": ["storage", "tabs"],
+
+    "host_permissions": ["https://mail.google.com/*"],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
+            "matches": ["https://mail.google.com/*"],
+            "js": ["contentScript.js"],
+            "css": ["styles/style.css"]
+        }
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": ["assets/loading.svg"],
+            "matches": ["https://mail.google.com/*"]
+        }
+    ],
+    "action": {
+        "default_title": "aids",
+        "default_popup": "popup.html"
+    },
+    "manifest_version": 3
+}
