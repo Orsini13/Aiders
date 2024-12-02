@@ -1,4 +1,4 @@
-// import { getActiveTabURL } from "./utils.js";
+import { getActiveTabURL } from "./utils.js";
 
 // const addNewBookmark = (bookmarks, bookmark) => {
 //   const bookmarkTitleElement = document.createElement("div");
@@ -71,23 +71,24 @@
 //   controlParentElement.appendChild(controlElement);
 // };
 
-// document.addEventListener("DOMContentLoaded", async () => {
-//   const activeTab = await getActiveTabURL();
-//   const queryParameters = activeTab.url.split("?")[1];
-//   const urlParameters = new URLSearchParams(queryParameters);
+document.addEventListener("DOMContentLoaded", async () => {
+    const activeTab = await getActiveTabURL();
+    console.log(activeTab)
+    const queryParameters = activeTab.url.split("#");
 
-//   const currentVideo = urlParameters.get("v");
+    if (activeTab.url.includes("mail.google.com")) {
+        const container = document.getElementsByClassName("container")[0];
 
-//   if (activeTab.url.includes("youtube.com/watch") && currentVideo) {
-//     chrome.storage.sync.get([currentVideo], (data) => {
-//       const currentVideoBookmarks = data[currentVideo] ? JSON.parse(data[currentVideo]) : [];
+        container.innerHTML =
+            '<div class="title">This is a GMAIL page.</div>';
+        // chrome.storage.sync.get([currentVideo], (data) => {
+        //   const currentVideoBookmarks = data[currentVideo] ? JSON.parse(data[currentVideo]) : [];
+        //   viewBookmarks(currentVideoBookmarks);
+        // });
+    } else {
+        const container = document.getElementsByClassName("container")[0];
 
-//       viewBookmarks(currentVideoBookmarks);
-//     });
-//   } else {
-//     const container = document.getElementsByClassName("container")[0];
-
-//     container.innerHTML = '<div class="title">This is not a youtube video page.</div>';
-//   }
-// });
-
+        container.innerHTML =
+            '<div class="title">This is not a gmail page.</div>';
+    }
+});
