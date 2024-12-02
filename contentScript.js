@@ -5,8 +5,8 @@
   chrome.runtime.onMessage.addListener((obj, sender, response) => {
     const { type, value, videoId } = obj
 
+    newMailLoaded()
     if (type === 'NEW') {
-      newMailLoaded()
     }
   })
 
@@ -18,7 +18,7 @@
       const sumbutton = document.createElement('button')
       sumbutton.textContent = 'summarize!!1'
       sumbutton.addEventListener('click', sumarize)
-      summarizer.appendChild(sumbutton)
+      summarizer.prepend(sumbutton)
     }
   }
 
