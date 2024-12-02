@@ -35,10 +35,15 @@ async function getSummarizer() {
     const newMailLoaded = () => {
         const summarizer = document.getElementsByClassName("bHJ")[0];
 
-        if (summarizer) {
+        const summarizeButton = document.getElementById(
+            "aiders-summarize-button"
+        );
+
+        if (summarizer && !summarizeButton) {
             const summarizeButton = document.createElement("button");
             summarizeButton.textContent = "Summarize";
             summarizeButton.className = `aider-grad-1 text-sm text-white font-semibold`;
+            summarizeButton.setAttribute("id", "aiders-summarize-button");
             summarizeButton.addEventListener("click", summarize);
             summarizer.prepend(summarizeButton);
         }

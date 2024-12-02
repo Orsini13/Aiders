@@ -13,6 +13,29 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
         const parsedUrl = new URL(tab.url);
         const pathSegments = parsedUrl.href.split("#");
 
+        let fragment = parsedUrl.hash.substring(1); // Remove the leading #
+        let fragmentParams = new URLSearchParams(fragment.split("?")[1]);
+
+        console.log(fragmentParams);
+
+        if (fragmentParams.has("compose")) {
+            console.log(
+                "The 'compose' parameter is present in the fragment:",
+                fragmentParams.get("compose")
+            );
+            return;
+
+            // COMPOSE ELEMENT
+            //             let formatIcon = document.querySelectorAll('[data-tooltip="Formatting options"]')[0]
+            // undefined
+            // formatIcon
+            // <div data-tooltip=​"Formatting options" aria-label=​"Formatting options">​…​</div>​flex<div id=​":​av" class=​"J-Z-I J-J5-Ji" role=​"button" aria-pressed=​"false" aria-haspopup=​"true" aria-expanded=​"false" style=​"user-select:​ none;​">​…​</div>​flex</div>​
+            // formatIcon.parentElement.prepend(document.createElement("button"))
+            // undefined
+            // formatIcon.parentElement.prepend(document.createElement("button"))
+        } else {
+            console.log("NILLLLLLLL");
+        }
         // Match email-specific URL patterns
         const emailUrlPatterns = [
             /^inbox\/[\w-]+$/,
