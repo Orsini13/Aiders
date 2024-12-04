@@ -1,55 +1,39 @@
-@import "./styles/style.css";
+/* Global Styles */
+body {
+    margin: 0;
+    padding: 0;
+    width: 300px;
+    font-family: "Inter", "Roboto", sans-serif;
+    background: linear-gradient(to right, #1d2671, #c33764);
+}
 
 .container {
-    width: 280px;
-    color: #314d3e;
+    padding: 0.6rem;
+    text-align: center;
+    color: white;
+    border-radius: 50%;
 }
 
 .title {
-    font-size: 14px;
-    font-weight: bold;
-    padding: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-.textbox {
-    width: 100%;
-    font-size: 12px;
-    margin: 0;
-    padding: 0px 2px;
+/* Responsive design */
+@media (prefers-color-scheme: dark) {
+    body {
+        background: linear-gradient(to right, #1d2671, #c33764);
+        color: white;
+    }
 }
 
-.textbox:focus {
-    outline: 0;
-    border-color: #66afe9;
+/* Gmail-specific styles */
+body[data-page="gmail"] {
+    background: linear-gradient(to right, #1d2671, #c33764);
 }
 
-.bookmarks {
-    margin: 5px 5px;
-    padding: 3px;
-}
-
-.bookmark {
-    display: flex;
-    border-bottom-color: #00254d;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-radius: 0.8rem;
-    padding: 3px;
-    padding-bottom: 7px;
-    margin-bottom: 7px;
-}
-
-.bookmark-title {
-    padding-left: 2px;
-}
-
-.bookmark-controls img {
-    margin: 0 4px;
-    width: 18px;
-    height: 18px;
-    cursor: pointer;
-}
-.bookmark-controls {
-    flex: auto;
-    text-align: right;
+body[data-page="other"] {
+    background: linear-gradient(45deg, #1d2671, #c33764);
+    opacity: 0.8;
 }

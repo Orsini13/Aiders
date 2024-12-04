@@ -1,9 +1,8 @@
 {
-    "name": "aids",
+    "name": "Aider",
     "version": "0.1.0",
-    "description": "Saving timestamps in YT videos",
+    "description": "AI Powered Email Assistant",
     "permissions": ["storage", "tabs"],
-
     "host_permissions": ["https://mail.google.com/*"],
     "background": {
         "service_worker": "background.js"
@@ -11,19 +10,33 @@
     "content_scripts": [
         {
             "matches": ["https://mail.google.com/*"],
-            "js": ["contentScript.js"],
+            "js": ["contentScript.js", "writeContentScript.js"],
             "css": ["styles/style.css"]
         }
     ],
     "web_accessible_resources": [
         {
-            "resources": ["assets/loading.svg"],
+            "resources": [
+                "assets/loading.svg",
+                "assets/write-icon.svg",
+                "assets/copy.svg"
+            ],
             "matches": ["https://mail.google.com/*"]
         }
     ],
     "action": {
-        "default_title": "aids",
-        "default_popup": "popup.html"
+        "default_title": "Aider",
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "assets/aider.png",
+            "48": "assets/aider.png",
+            "128": "assets/aider.png"
+        }
+    },
+    "icons": {
+        "16": "assets/aider.png",
+        "48": "assets/aider.png",
+        "128": "assets/aider.png"
     },
     "manifest_version": 3
 }

@@ -8,23 +8,252 @@
         <title>Vite App</title>
     </head>
     <body>
-        <div class="flex p-20 flex-col space-y-10">
+        <div class="flex p-20 flex-col space-y-10 space-x-1">
             <button
                 id="aiders-summarize-button"
                 class="aider-grad-1 text-sm text-white font-semibold"
             >
                 Summarize
             </button>
-            <div
-                class="aider-result-modal max-w-[30rem] max-h-[60vh] w-full bg-white flex flex-col justify-start items-center rounded-lg border"
-            >
-                <p
-                    class="py-3 px-5 text-lg text-[#202124] bg-[#F7F9FB] w-full rounded-t-lg font-bold"
-                >
-                    Aiders
-                </p>
+            <img
+                src="./assets/write-icon.svg"
+                alt=""
+                class="w-4 transition-all duration-200 scale-pulse hover:scale-110"
+            />
+            <div>
+                <div class="aider-loader mr-2"></div>
+            </div>
+        </div>
+
+        <div
+            id="composeModalOverlay"
+            class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+        >
+            <div class="bg-white rounded-lg shadow-lg w-11/12 max-w-md">
                 <div
-                    class="flex flex-col max-h-full justify-start items-center w-full py-3 px-5 space-y-3"
+                    class="flex justify-between items-center mb-4 bg-[#F7F9FB] px-3"
+                >
+                    <p
+                        class="py-3 text-lg text-[#202124] w-full rounded-t-lg font-bold"
+                    >
+                        Aiders
+                    </p>
+                    <button
+                        id="closeComposeModalBtn"
+                        class="text-gray-500 text-lg uppercase hover:text-gray-900"
+                    >
+                        &times;
+                    </button>
+                </div>
+                <div
+                    class="flex flex-col max-h-full justify-start items-center w-full py-1 px-5 space-y-3"
+                >
+                    <p class="mr-auto">Describe the Email's Purpose</p>
+                    <textarea
+                        class="text-gray-700 text-sm break-words outline-none appearance-none overflow-y-auto p-2 w-full max-h-[200px] border border-gray-500 aider-custom-scrollbar"
+                        rows="4"
+                        id="user-compose-input"
+                        placeholder="Enter a brief description, e.g., 'Invite users to upcoming webinar.'"
+                    ></textarea>
+
+                    <div class="flex w-full space-x-4">
+                        <div class="flex-1">
+                            <label
+                                for="tone-select"
+                                class="block text-sm font-medium text-gray-700 mb-1"
+                                >Tone</label
+                            >
+                            <select
+                                id="tone-select"
+                                class="w-full p-2 border border-gray-300 rounded-md text-sm"
+                            >
+                                <option value="neutral">Neutral</option>
+                                <option value="formal">Formal</option>
+                                <option value="friendly">Friendly</option>
+                                <option value="professional">
+                                    Professional
+                                </option>
+                                <option value="conversational">
+                                    Conversational
+                                </option>
+                                <option value="persuasive">Persuasive</option>
+                            </select>
+                        </div>
+
+                        <div class="flex-1">
+                            <label
+                                for="length-select"
+                                class="block text-sm font-medium text-gray-700 mb-1"
+                                >Length</label
+                            >
+                            <select
+                                id="length-select"
+                                class="w-full p-2 border border-gray-300 rounded-md text-sm"
+                            >
+                                <option value="short">Short</option>
+                                <option value="medium">Medium</option>
+                                <option value="long">Long</option>
+                                <option value="concise">Concise</option>
+                                <option value="detailed">Detailed</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <p
+                        id="input-error"
+                        class="text-red-500 text-sm w-full hidden"
+                    >
+                        Please enter a description before generating.
+                    </p>
+
+                    <p class="w-full bg-gray-200 p-[0.05rem]"></p>
+
+                    <p class="mr-auto">Preview</p>
+
+                    <p
+                        class="text-sm max-h-[10rem] h-full overflow-y-auto aider-custom-scrollbar"
+                    >
+                        Lorem ipsum dolor sit amet, consectetur adipisicing
+                        elit. Deleniti et quasi laudantium impedit! Nam corporis
+                        aperiam cumque accusantium nostrum aspernatur culpa
+                        nihil veritatis id pariatur perspiciatis sint facilis
+                        itaque ipsa eius odit repellat debitis error, ea minus
+                        iusto. Et ipsam qui dicta exercitationem sint expedita
+                        nesciunt eius iste modi accusantium, soluta consequuntur
+                        excepturi ea autem vitae ducimus maiores odit provident
+                        velit sequi dolorem! Molestias aspernatur consectetur
+                        deserunt, ad molestiae minus? Excepturi officia iusto
+                        rem quae laboriosam minima, dolores, incidunt quibusdam
+                        eaque veniam saepe consequuntur temporibus quasi!
+                        Quaerat impedit aliquam natus numquam aspernatur ipsa.
+                        Consectetur non voluptate aspernatur expedita mollitia
+                        quos.
+                    </p>
+
+                    <section class="flex w-full justify-end items-center py-2 space-x-2">
+                        <button
+                            id="aiders-insert-button"
+                            class="aider-border-1 text-sm text-gray-900 bg-white font-semibold px-4 py-2"
+                        >
+                            Insert Response
+                        </button>
+                        <button
+                            id="aiders-generate-button"
+                            class="aider-grad-1 text-sm text-white font-semibold px-4 py-2 rounded"
+                        >
+                            Generate
+                        </button>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="flex justify-start items-center space-x-2 w-full">
+            <div class="w-full relative group">
+                <div
+                    class="block w-full appearance-none text-sm bg-white border border-gray-300 text-gray-700 py-1 px-3 rounded-lg shadow-sm cursor-pointer"
+                >
+                    Neutral
+                    <div
+                        class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none top-1/2 -translate-y-1/2"
+                    >
+                        <svg
+                            class="w-5 h-5 text-gray-500"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M19 9l-7 7-7-7"
+                            />
+                        </svg>
+                    </div>
+                </div>
+                <div
+                    class="hidden group-hover:block absolute z-10 w-full bg-white border border-gray-300 rounded-lg shadow-lg mt-1"
+                >
+                    <div class="py-1">
+                        <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                            Neutral
+                        </div>
+                        <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                            Formal
+                        </div>
+                        <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                            Casual
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="w-full relative group">
+                <div
+                    class="block w-full appearance-none text-sm bg-white border border-gray-300 text-gray-700 py-1 px-3 rounded-lg shadow-sm cursor-pointer"
+                >
+                    Medium
+                    <div
+                        class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none top-1/2 -translate-y-1/2"
+                    >
+                        <svg
+                            class="w-5 h-5 text-gray-500"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M19 9l-7 7-7-7"
+                            />
+                        </svg>
+                    </div>
+                </div>
+                <div
+                    class="hidden group-hover:block absolute z-10 w-full bg-white border border-gray-300 rounded-lg shadow-lg mt-1"
+                >
+                    <div class="py-1">
+                        <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                            Short
+                        </div>
+                        <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                            Medium
+                        </div>
+                        <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                            Long
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+        <!-- 
+        <div
+            id="modalOverlay"
+            class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+        >
+            <div class="bg-white rounded-lg shadow-lg w-11/12 max-w-md">
+                <div
+                    class="flex justify-between items-center mb-4 bg-[#F7F9FB] px-3"
+                >
+                    <p
+                        class="py-3 text-lg text-[#202124] w-full rounded-t-lg font-bold"
+                    >
+                        Aiders
+                    </p>
+                    <button
+                        id="closeModalBtn"
+                        class="text-gray-500 text-lg uppercase hover:text-gray-900"
+                    >
+                        &times;
+                    </button>
+                </div>
+                <div
+                    class="flex flex-col max-h-full justify-start items-center w-full py-1 px-5 space-y-3"
                 >
                     <p class="font-semibold mr-auto">Summary</p>
                     <p
@@ -62,7 +291,9 @@
                         accusamus reprehenderit ad! Repellendus.
                     </p>
                     <p class="w-full bg-gray-200 p-[0.05rem]"></p>
-                    <section class="flex w-full justify-between items-center">
+                    <section
+                        class="flex w-full justify-between items-center py-2"
+                    >
                         <button
                             class="bg-transparent inline-flex outline-none border-none font-semibold"
                         >
@@ -82,17 +313,49 @@
                     </section>
                 </div>
             </div>
-        </div>
-        <div
-            class="aider-loading-overlay fixed inset-0 w-screen h-screen backdrop-blur-sm z-[99999999]"
-        >
-            <div class="absolute inset-0 bg-gray-400 opacity-50 flex">
-                <div
-                    class="aider-loading-div rounded-xl bg-white max-w-[18rem] w-full p-4 m-auto isolate opacity-100"
-                >
-                    <img src="./assets/Frame 168.svg" alt="" class="w-full" />
-                </div>
-            </div>
-        </div>
+        </div> -->
+        <img src="./assets/write-icon.svg" alt="" class="w-3 !hidden" />
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const generateButton = document.getElementById(
+                    "aiders-generate-button"
+                );
+                const composeInput =
+                    document.getElementById("user-compose-input");
+                const toneSelect = document.getElementById("tone-select");
+                const lengthSelect = document.getElementById("length-select");
+                const inputError = document.getElementById("input-error");
+                const closeModalBtn = document.getElementById(
+                    "closeComposeModalBtn"
+                );
+
+                generateButton.addEventListener("click", () => {
+                    // Validation
+                    if (!composeInput.value.trim()) {
+                        inputError.classList.remove("hidden");
+                        return;
+                    }
+                    inputError.classList.add("hidden");
+
+                    // Retrieve selected values
+                    const purpose = composeInput.value.trim();
+                    const tone = toneSelect.value;
+                    const length = lengthSelect.value;
+
+                    // Example of how you might handle the generation
+                    alert(`Generating email with:
+    Purpose: ${purpose}
+    Tone: ${tone}
+    Length: ${length}`);
+                });
+
+                // Close modal functionality
+                closeModalBtn.addEventListener("click", () => {
+                    document.getElementById(
+                        "composeModalOverlay"
+                    ).style.display = "none";
+                });
+            });
+        </script>
     </body>
 </html>

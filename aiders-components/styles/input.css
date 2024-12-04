@@ -22,6 +22,54 @@
     box-shadow: 0px 0.2rem 0.25rem rgba(16, 24, 40, 0.1);
 }
 
+.aider-border-1 {
+    position: relative;
+    background: white;
+    border: none;
+    border-radius: 4rem;
+    padding: 0.4rem 1.5rem;
+    overflow: hidden;
+    cursor: pointer;
+    
+    /* Base styles */
+    color: #1d2671;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.aider-border-1::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(90deg, #c33764 0%, #1d2671 100%);
+    border-radius: 4rem;
+    z-index: -1;
+}
+
+.aider-border-1::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+    background: white;
+    border-radius: 4rem;
+    z-index: -1;
+}
+
+.aider-border-1:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.aider-border-1:active {
+    transform: scale(0.95);
+}
+
 .aider-loading-div {
     box-shadow: 0px 0.4rem 0.9rem 0px rgba(0, 0, 0, 0.25);
 }
@@ -46,4 +94,38 @@
 
 .aider-custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: #555;
+}
+
+.aider-loader {
+    width: 1.5rem;
+    aspect-ratio: 4;
+    --c: #c33764 90%, #0000;
+    background: radial-gradient(
+            circle closest-side at left 0.3rem top 50%,
+            var(--c)
+        ),
+        radial-gradient(circle closest-side, var(--c)),
+        radial-gradient(circle closest-side at right 0.3rem top 50%, var(--c));
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    animation: aiderloader 0.7s infinite alternate;
+}
+@keyframes aiderloader {
+    to {
+        width: 1rem;
+        aspect-ratio: 1;
+    }
+}
+
+@keyframes scalePulse {
+    0%,
+    100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+.scale-pulse {
+    animation: scalePulse 2s infinite;
 }
