@@ -1,5 +1,5 @@
 {
-    "name": "Aider",
+    "name": "Aiders",
     "version": "0.1.0",
     "description": "AI Powered Email Assistant",
     "permissions": ["storage", "tabs"],

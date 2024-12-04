@@ -233,12 +233,6 @@
 
                 const session = await ai.languageModel.create();
                 return await session.prompt(prompt);
-
-                const rewriter = await ai.rewriter.create();
-                return await rewriter.rewrite(singleLineString, {
-                    context:
-                        "Avoid any toxic language and be as constructive as possible.",
-                });
             } catch (error) {
                 console.error("Summary generation error:", error);
                 return "Failed to generate summary. Please try again.";
